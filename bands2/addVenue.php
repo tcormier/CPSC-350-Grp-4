@@ -7,7 +7,7 @@
   <link rel="stylesheet" type="text/css" href="style.css" />
 </head>
 <body>
-
+<h1><a href="http://localhost/bands2/"><img src="images/logo.gif" width="118" height="25" alt="Rock Band" /></a></h1>
 <?php
 	include "db_connect.php";
 	$name = $_POST['venue_name'];

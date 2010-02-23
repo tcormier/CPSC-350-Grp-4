@@ -6,9 +6,9 @@
   <title>Add a Band</title>
   <link rel="stylesheet" type="text/css" href="style.css" />
 </head>
-<h1><a href="http://localhost/cpsc-350-grp-4/bands2/"><img src="images/logo.gif" width="118" height="25" alt="Rock Band" /></a></h1>
+<h1><a href="http://localhost/bands2/"><img src="images/logo.gif" width="118" height="25" alt="Rock Band" /></a></h1>
 <body>
-
+<h1><a href="http://localhost/bands2/"><img src="images/logo.gif" width="118" height="25" alt="Rock Band" /></a></h1>
 <?php
 	include "db_connect.php";
 	$name = $_POST['band_name'];
