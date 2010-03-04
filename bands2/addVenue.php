@@ -3,46 +3,51 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-  <title>Add a Band</title>
+  <title>Add a Venue</title>
   <link rel="stylesheet" type="text/css" href="style.css" />
 </head>
-<body>
-<h1><a href="http://localhost/bands2/"><img src="images/logo.gif" width="118" height="25" alt="Rock Band" /></a></h1>
-<?php
-	include "db_connect.php";
-	$name = $_POST['venue_name'];
-	$address=$_POST['city'] . ", ". $_POST['state'] . ", " . $_POST['zip'];		
-	$description = $_POST['description'];
-	$filename = $_FILES['picture']['name'];
+
+<form method="post" action="postVenue.php">
+
+<br/>
+<br/>
+<h1>
+<a href="http://localhost/bands2/"><img src="images/logo.gif" width="118" height="25" alt="Rock Band" /></a><br/>
+Enter the following information to add a new Venue
+</h1>
+<br/>
+<table>
+<tr>
+<td><b>Venue Name:</b></td><td><input text="" name="venue_name" size="15"/></td>
+</tr>
+</table>
+<table>
+<tr>
+<td><h2>Address: <h2></br></td>              
+</tr>
+<table>
+<tr>
+<td><b>City:</b></td>  <td><input text="" name="city" size="50" /> </td></tr>
 	
-	$target ="images/$filename";
-	move_uploaded_file($_FILES['picture']['tmp_name'], $target);
-	
-	
-	$query = "INSERT INTO venue (venue, location, description, picture_file)
-		VALUES ('$name','$address','$description','$target')";
-		
-	$result = mysqli_query($db, $query);
-	
-	echo "<p>Thanks for submitting the form</p>";
-	
-	echo "<h1>Recent Venues</h1>";
-	
-	$query = "SELECT * FROM venue ORDER BY venue_id";
-  
-  $result = mysqli_query($db, $query)
-   or die("Error Querying Database");
-  
-  echo "<table id=\"hor-minimalist-b\">\n<tr><th>Venue Name</th><th></th><th>Location</th><tr>\n\n";
-  
-  while($row = mysqli_fetch_array($result)) {
-  	
-  	$name = $row['venue'];
-  	
-  	$location = $row['location'];
-  	
-  	echo "<tr><td  >$name</td><td >$city</td><td>$location</td></tr>\n";
-  }
- echo "</table>\n"; 
-  
-  mysqli_close($db);
+<tr><td><b>State(abbreviation):<b></td><td>  <input text="" name="state" size="2" /></td>
+</tr>
+<tr><td><b>Zip Code:</b><input text="" name="zip" size="10" /></td></tr>
+
+</table>
+<table>
+
+<tr><td>Description:</td></tr>
+<tr><td><TEXTAREA NAME="description" COLS=40 ROWS=6></TEXTAREA></td>
+</tr>
+<tr><td>Picture File:</td><td><input type="file" id="picture" name="picture"  /></td>
+</tr>
+<tr>
+<td>
+<input type="submit" name="submit" value="Submit"/>
+<input type="reset" name="reset" value="Clear Form"/>
+</td>
+</tr>
+</table>
+</form>
+</body>
+</html>

@@ -28,7 +28,7 @@
 						</form>
 	
 						<p><b>Search For Venue</b></p>
-						<form method="post" action="searchYear.php">
+						<form method="post" action="searchVenue.php">
 						<input type="text" id="searchbox" name="searchbox" />
 						<input type="submit" value="go" name="submit" />
 						</form>
@@ -36,10 +36,18 @@
 					</div>
 	<div id="main">
 <?php
-	include "db_connect.php";	
-	$name = $_POST['searchbox'];
-	$query = "SELECT * FROM band WHERE band_name = '$name';";
+	include "db_connect.php";
+	$search = $_POST['searchbox'];
+	$find = "LIKE '%$search%'";
+	if($search == "")
+	{
+		$query = "SELECT * FROM band";		
+	}
+	else
+	{	
 	
+	$query = "SELECT * FROM band WHERE band_name $find OR hometown $find OR description $find OR genre $find OR albums $find;";
+	}
 	$result = mysqli_query($db, $query)
 	or die("Error Querying Database");
 	echo "<h1><a href='http://localhost/cpsc-350-grp-4/bands2/'><img src='images/logo.gif' width='118' height='25' alt='Rock Band' /></a></h1>";

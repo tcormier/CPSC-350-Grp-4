@@ -36,10 +36,17 @@
 					</div>
 	<div id="main">
 <?php
-	include "db_connect.php";	
-	$name = $_POST['searchbox'];
-	$query = "SELECT * FROM venue WHERE venue = '$name';";
-	
+	include "db_connect.php";
+	$search = $_POST['searchbox'];
+	$find = "LIKE '%$search%'";
+	if($search=="")
+	{
+	$query = "SELECT * FROM venue";
+	}
+	else
+	{
+	$query = "SELECT * FROM venue WHERE venue $find OR description $find OR location $find;";
+	}
 	$result = mysqli_query($db, $query)
 	or die("Error Querying Database");
 	echo "<h1><a href='http://localhost/cpsc-350-grp-4/bands2/'><img src='images/logo.gif' width='118' height='25' alt='Rock Band' /></a></h1>";
