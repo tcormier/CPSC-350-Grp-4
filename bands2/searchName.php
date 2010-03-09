@@ -10,8 +10,8 @@
 <div id="wrap">
 	<ul id="nav">
 		<li><a href="http://localhost/bands2/">home</a></li>
-		<li><a href="http://localhost/bands2/addBand.html">add band</a></li>
-		<li><a href="http://localhost/bands2/addVenue.html">add venue</a></li>
+		<li><a href="http://localhost/bands2/addBand.php">add band</a></li>
+		<li><a href="http://localhost/bands2/addVenue.php">add venue</a></li>
 		<li><a href="http://localhost/bands2/">login</a></li>
 	</ul>
 	<h1><a href="http://localhost/htdocs/bands2/"><img src="images/logo.gif" width="118" height="25" alt="Rock Band" /></a></h1>
