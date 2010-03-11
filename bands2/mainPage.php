@@ -1,8 +1,7 @@
-<?php
-session_start();
-session_destroy();
-?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<?php session_start();?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
+
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
 	<meta http-equiv="Content-Style-Type" content="text/css" />
@@ -10,45 +9,42 @@ session_destroy();
 	<link href="style.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
+<?php
+	
+	if(!session_is_registered("username")){
+			echo "<h1>The username or password is incorrect. <a href=\"index.php\">Please try again.</a></h1>";
+			}else{
+	?>
 <div id="wrapper">
-	
-		
-  </form>
-  
-	
-	<h1><a href="index.php"><img src="images/logo.gif" width="118" height="25" alt="Rock Band" /></a></h1>
+	<ul id="nav">
+		<li><a href="mainPage.php">home</a></li>
+		<li><a href="addBand.php">add band</a></li>
+		<li><a href="addVenue.php">add venue</a></li>
+		<li><a href="index.php">logout</a></li>
+	</ul>
+	<h1><a href="mainPage.php"><img src="images/logo.gif" width="118" height="25" alt="Rock Band" /></a></h1>
 	<div id="body">
 		<div id="bodyi">
 			<div id="bodyj">
-				<div id="sidebar">					
+				<div id="sidebar">
 					<div class="content">
-						<h2>Log In</h2>
-						<p><a href="createAccount.html">Create Account</a></p>
-						<form method="post" action="login.php">
-						<label for="username">Username:</label>
-						<input type="text" id="username" name="username" size="15" /><br />
-						<label for="pw">Password:</label>
-						<input type="password" id="password" name="password" size="15"/><br />    
-						<input type="submit" value="Login" name="submit" />
-						<h2>Searches</h2>
+						<h2>Seaches</h2>
 						<p><b>Search For Artists</b></p>
 						<form method="post" action="searchName.php">
-						<input type="text" id="searchbox" name="searchbox" size="15"/>
+						<input type="text" id="searchbox" name="searchbox" />
 						<input type="submit" value="go" name="submit" />
 						</form>
 	
 						<p><b>Search For Venue</b></p>
 						<form method="post" action="searchVenue.php">
-						<input type="text" id="searchbox" name="searchbox" size="15"/>
+						<input type="text" id="searchbox" name="searchbox" />
 						<input type="submit" value="go" name="submit" />
 						</form>
 					</div>
 					<div class="divider"></div>
 					<div class="content">
 						<h2>Featured Artist &amp; Updates</h2>
-						<h3><?php 
-						$date= date('Y-m-d H:i:s');
-						echo $date; ?></h3>
+						<h3>June 23, 2005</h3>
 						<p><?php include "featured.php"?>
 						<img src="images/pic_3.jpg" width="65" height="43" alt="pic 3" />
 						</p>
@@ -97,6 +93,8 @@ session_destroy();
 		</div>
 	</div>
 	<p id="power">Powered by Artist and Venue Search</p>
+	<?php }
+	?>
 </div>
 </body>
 </html>

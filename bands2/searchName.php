@@ -9,12 +9,12 @@
 <body>
 <div id="wrap">
 	<ul id="nav">
-		<li><a href="http://localhost/bands2/">home</a></li>
-		<li><a href="http://localhost/bands2/addBand.php">add band</a></li>
-		<li><a href="http://localhost/bands2/addVenue.php">add venue</a></li>
-		<li><a href="http://localhost/bands2/">login</a></li>
+		<li><a href="mainPage.php">home</a></li>
+		<li><a href="addBand.php">add band</a></li>
+		<li><a href="addVenue.php">add venue</a></li>
+		<li><a href="logout.php">logout</a></li>
 	</ul>
-	<h1><a href="http://localhost/htdocs/bands2/"><img src="images/logo.gif" width="118" height="25" alt="Rock Band" /></a></h1>
+	<h1><a href="mainPage.php"><img src="images/logo.gif" width="118" height="25" alt="Rock Band" /></a></h1>
 	
 		
 		
