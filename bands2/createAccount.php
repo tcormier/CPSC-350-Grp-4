@@ -69,7 +69,7 @@
 		
 		echo "<p>Thanks for creating an Account!</p>";
 		echo "<p>You are now able to access the areas of our website </br> where you can add/remove/edit band and venue entries</p>";
-		echo "<a href=\"mainPage.php\">Click here to go back to your new homepage</a>";
+		echo "<a href=\"index.php\">Click here to go back and sign in.</a>";
 		
 		mysqli_close($db);
 		}

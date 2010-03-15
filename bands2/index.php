@@ -30,6 +30,7 @@ session_destroy();
 						<label for="pw">Password:</label>
 						<input type="password" id="password" name="password" size="15"/><br />    
 						<input type="submit" value="Login" name="submit" />
+						</form>
 						<h2>Searches</h2>
 						<p><b>Search For Artists</b></p>
 						<form method="post" action="searchName.php">

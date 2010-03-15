@@ -1,3 +1,4 @@
+<?php session_start();?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
@@ -8,12 +9,15 @@
 </head>
 <body>
 <div id="wrap">
-	<ul id="nav">
-		<li><a href="mainPage.php">home</a></li>
-		<li><a href="addBand.php">add band</a></li>
-		<li><a href="addVenue.php">add venue</a></li>
-		<li><a href="logout.php">logout</a></li>
-	</ul>
+	<?php
+	if(session_is_registered("username")){
+	echo"<ul id=\"nav\">
+		<li><a href=\"mainPage.php\">home</a></li>
+		<li><a href=\"addBand.php\">add band</a></li>
+		<li><a href=\"addVenue.php\">add venue</a></li>
+		<li><a href=\"logout.php\">logout</a></li>
+	</ul>";}
+	?>
 	<h1><a href="mainPage.php"><img src="images/logo.gif" width="118" height="25" alt="Rock Band" /></a></h1>
 	
 		

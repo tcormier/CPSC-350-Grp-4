@@ -3,11 +3,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-  <title>Add a Band</title>
+  <title>Add a Venue</title>
   <link rel="stylesheet" type="text/css" href="style.css" />
 </head>
 <body>
-<h1><a href="mainPage.php"><img src="images/logo.gif" width="118" height="25" alt="Rock Band" /></a></h1>
+<h2><a href="mainPage.php"><img src="images/logo.gif" width="118" height="25" alt="Rock Band" /></a></h2>
 <?php
 	include "db_connect.php";
 	$name = $_POST['venue_name'];
@@ -18,6 +18,7 @@
 	$state = $_POST['state'];
 	$zip = $_POST['zip'];
 	$target ="images/$filename";
+	$validinput=true;
 	move_uploaded_file($_FILES['picture']['tmp_name'], $target);
 	
 	if(is_null($name) or $name=="")
@@ -45,7 +46,7 @@
 	}
 
 	
-	if(is_null($description) or $description=="")
+	if(is_null($description) or $description == "")
 	{
 		$validinput = false;
 		$descriptionstatus = "* Invalid Entry";
@@ -99,6 +100,7 @@ Enter the following information to add a new Venue
 		
 	$result = mysqli_query($db, $query);
 	
+	
 	echo "<p>Thanks for submitting the form</p>";
 	
 	echo "<h1>Recent Venues</h1>";
@@ -112,15 +114,13 @@ Enter the following information to add a new Venue
   
   while($row = mysqli_fetch_array($result)) {
   	
-  	$name = $row['venue'];
-  	
+  	$name = $row['venue']; 
+	
   	$location = $row['location'];
   	
-  	echo "<tr><td  >$name</td><td >$city</td><td>$location</td></tr>\n";
+  	echo "<tr><td  >$name</td><td>$location</td></tr>\n";
   }
- echo "</table>\n"; 
- }
-
-  
+ echo "</table>\n";   
   mysqli_close($db);
+  }
   ?>

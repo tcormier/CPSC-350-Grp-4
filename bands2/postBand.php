@@ -135,7 +135,8 @@
 	$query = "INSERT INTO band (band_name, hometown, genre, description, picture_file, albums)
 		VALUES ('$name','$hometown','$genre','$description','$target','$albums');";
 		
-	$result = mysqli_query($db, $query);
+	$result = mysqli_query($db, $query)
+	
 	
 	echo "<p>Thanks for submitting the form</p>";
 	

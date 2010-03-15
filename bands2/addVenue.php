@@ -11,9 +11,9 @@
 
 <br/>
 <br/>
-<h1>
+<h2>
 <a href="http://localhost/bands2/"><img src="images/logo.gif" width="118" height="25" alt="Rock Band" /></a><br/>
-Enter the following information to add a new Venue
+</h2><h1>Enter the following information to add a new Venue
 </h1>
 <br/>
 <table>
