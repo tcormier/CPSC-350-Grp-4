@@ -28,6 +28,7 @@ session_start();
  while($row = mysqli_fetch_array($result)) {
 	
 	$description = $row['description'];
+	
 	$hometown = explode(", ",$row['hometown']);
 	$city = $hometown[0];
 	$state = $hometown[1];
@@ -36,11 +37,11 @@ session_start();
 	$genre2 = $row['genre2'];
 	$genre3 = $row['genre3'];
 	$bandName = $row['band_name'];
-	$albums1 = $row['album1'];
-	$albums2 = $row['album2'];
-	$albums3 = $row['album3'];
-	$albums4 = $row['album4'];
-	$albums5 = $row['album5'];
+	$album1 = $row['album1'];
+	$album2 = $row['album2'];
+	$album3 = $row['album3'];
+	$album4 = $row['album4'];
+	$album5 = $row['album5'];
 	
  }
  
@@ -76,52 +77,59 @@ session_start();
 	
 				<tr>
 				
-				<select name=\"genre1\">
-				<?php
-				include \"db_connect.php\";
-				$query = \"SELECT DISTINCT genre_name FROM genre;\";
+				<select name=\"genre1\">";
+				
+			
+				include "db_connect.php";
+				$query = "SELECT DISTINCT genre_name, genre_id FROM genre;";
 				$result = mysqli_query($db, $query);
 				
 				while($row = mysqli_fetch_array($result))	
 				{
 					$genre1 = $row['genre_name'];
-					echo \"<option>$genre</option>\n\";
+					$value1 = $row['genre_id'];
+					echo "<option value= \"$value1\" >$genre1</option>\n";
 				}
-				?>
+				
+				echo "
 				</select>
 						
 				</tr>
 				<tr>
 				
-				<select name=\"genre2\">
-				<?php
-				include \"db_connect.php\";
-				$query = \"SELECT DISTINCT genre_name FROM genre;\";
+				<select name=\"genre2\">";
+				
+				include "db_connect.php";
+				$query = "SELECT DISTINCT genre_name, genre_id FROM genre;";
 				$result = mysqli_query($db, $query);
 				
 				while($row = mysqli_fetch_array($result))	
 				{
 					$genre2 = $row['genre_name'];
-					echo \"<option>$genre</option>\n\";
+					$value2 = $row['genre_id'];
+					echo "<option value = \"$value2\" >$genre2</option>\n";
 				}
-				?>
+				
+				echo "
 				</select>
 						
 				</tr>
 				<tr>
 				
-				<select name=\"genre3\">
-				<?php
-				include \"db_connect.php\";
-				$query = \"SELECT DISTINCT genre_name FROM genre;\";
+				<select name=\"genre3\">";
+			
+				include "db_connect.php";
+				$query = "SELECT DISTINCT genre_name, genre_id FROM genre;";
 				$result = mysqli_query($db, $query);
 				
 				while($row = mysqli_fetch_array($result))	
 				{
 					$genre3 = $row['genre_name'];
-					echo \"<option>$genre</option>\n\";
+					$value3 = $row['genre_id'];
+					echo "<option value=\"$value3\">$genre3</option>\n";
 				}
-				?>
+				
+				echo "
 				</select>
 						
 				</tr></td>
@@ -129,15 +137,15 @@ session_start();
 	<tr></tr>
 	<tr></tr>
 	<tr><td>Description:</td></tr>
-	<tr><td><TEXTAREA NAME=\"description\" COLS=40 ROWS=6 value=\"$description\"></TEXTAREA></td>
+	<tr><td><TEXTAREA NAME=\"description\" COLS=40 ROWS=6 value=\"$description\">$description</TEXTAREA></td>
 	</tr>
 	<tr>
 	<td>Albums:</td></tr>
-	<tr><td><input text=\"\" name=\"albums1\" size=\"20\" value=\"$albums1\"/></td></tr>
-	<tr><td><input text=\"\" name=\"albums2\" size=\"20\" value=\"$albums2\"/></td></tr>
-	<tr><td><input text=\"\" name=\"albums3\" size=\"20\" value=\"$albums3\"/></td></tr>
-	<tr><td><input text=\"\" name=\"albums4\" size=\"20\" value=\"$albums4\"/></td></tr>
-	<tr><td><input text=\"\" name=\"albums5\" size=\"20\" value=\"$albums5\"/></td></tr>
+	<tr><td><input text=\"\" name=\"albums1\" size=\"20\" value=\"$album1\"/></td></tr>
+	<tr><td><input text=\"\" name=\"albums2\" size=\"20\" value=\"$album2\"/></td></tr>
+	<tr><td><input text=\"\" name=\"albums3\" size=\"20\" value=\"$album3\"/></td></tr>
+	<tr><td><input text=\"\" name=\"albums4\" size=\"20\" value=\"$album4\"/></td></tr>
+	<tr><td><input text=\"\" name=\"albums5\" size=\"20\" value=\"$album5\"/></td></tr>
 	<tr>
 	<td>Picture File:</td><td><input type=\"file\" id=\"picture\" name=\"picture\"  /></td>
 	</tr>
