@@ -183,8 +183,9 @@ Enter the following information to add a new Band</h1>
 	}else{
 	
 	
-	$query = "INSERT INTO band (band_name, hometown, genre1, genre2, genre3, description, picture_file, album1, album2, album3, album4, album5)
-		VALUES ('$name','$hometown','$genre1', '$genre2', '$genre3','$description','$target','$album1','$album2','$album3','$album4','$album5');";
+	$query = "UPDATE band SET band_name = '$name', hometown = '$hometown', genre1 = '$genre1', genre2 = '$genre2', genre3 = 'genre3',
+			description = '$description', picture_file = '$target', album1 = '$album1',album2 = '$album2',album3 = '$album3',
+			album4 = '$album4',album5 = '$album5' WHERE band_name = '$name';";
 		
 	$result = mysqli_query($db, $query)
 	or die("error Querying Database");
@@ -214,3 +215,7 @@ Enter the following information to add a new Band</h1>
   mysqli_close($db);
   }
   ?>
+
+
+		
+		

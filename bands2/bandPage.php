@@ -10,12 +10,14 @@ session_start();
   <link rel="stylesheet" type="text/css" href="style.css" />
 </head>
 
-<form method="post" action="postBand.php">
+<form method="post" action="editBand.php">
 
 <br/>
 <br/>
 <h1>
 <a href="http://localhost/bands2/"><img src="images/logo.gif" width="118" height="25" alt="Rock Band" /></a><br/>
+Band Information
+</h1>
 
 <b></b>
 <?php
@@ -46,14 +48,13 @@ session_start();
  }
  
  //<img src="$picture">
- echo "<form method=\"post\" action=\"postBand.php\">
+ echo "<form method=\"post\" action=\"editBand.php\">
 
 	<br/>
 	<br/>
-	<h1>
-	
-	Enter the following information to add a new Band
-	</h1>
+	<h3>	
+	Edit the following to change information about the band.
+	</h3>
 	<br/>
 	<table>
 	<tr>
@@ -141,11 +142,11 @@ session_start();
 	</tr>
 	<tr>
 	<td>Albums:</td></tr>
-	<tr><td><input text=\"\" name=\"albums1\" size=\"20\" value=\"$album1\"/></td></tr>
-	<tr><td><input text=\"\" name=\"albums2\" size=\"20\" value=\"$album2\"/></td></tr>
-	<tr><td><input text=\"\" name=\"albums3\" size=\"20\" value=\"$album3\"/></td></tr>
-	<tr><td><input text=\"\" name=\"albums4\" size=\"20\" value=\"$album4\"/></td></tr>
-	<tr><td><input text=\"\" name=\"albums5\" size=\"20\" value=\"$album5\"/></td></tr>
+	<tr><td><input text=\"\" name=\"album1\" size=\"20\" value=\"$album1\"/></td></tr>
+	<tr><td><input text=\"\" name=\"album2\" size=\"20\" value=\"$album2\"/></td></tr>
+	<tr><td><input text=\"\" name=\"album3\" size=\"20\" value=\"$album3\"/></td></tr>
+	<tr><td><input text=\"\" name=\"album4\" size=\"20\" value=\"$album4\"/></td></tr>
+	<tr><td><input text=\"\" name=\"album5\" size=\"20\" value=\"$album5\"/></td></tr>
 	<tr>
 	<td>Picture File:</td><td><input type=\"file\" id=\"picture\" name=\"picture\"  /></td>
 	</tr>
