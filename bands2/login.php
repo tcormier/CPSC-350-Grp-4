@@ -15,20 +15,20 @@
 	include "db_connect.php";
 	$username = $_POST['username'];
 	$password = $_POST['password'];	
-	$query = "SELECT * from users WHERE username= '$username' AND password= SHA('$password')";
-	
+	$query = "SELECT * from users WHERE username= '$username' AND password= SHA('$password');";
 	$result = mysqli_query($db, $query);
 	$_SESSION['user_name'] = '$username';
-    $_SESSION['password'] = '$password';
+	$_SESSION['password'] = '$password';
 	if ($row = mysqli_fetch_array($result))
 	{
-	echo "</br><h2>You are now signed in. Thanks $username!</h2>
+		echo "</br><h2>You are now signed in. Thanks $username!</h2>
 			<p><a href=\"mainPage.php\">Click Here to Access the Main Page</a>";
-			session_register("username");
+			
 	}
 	else
 	{
 	echo "<h2>The username or password is incorrect. <a href=\"index.php\">Click Here to try again.</a></h2>";
+	echo "the result is".$row[0].$row[1];
 	}
 	mysqli_close($db);
 	

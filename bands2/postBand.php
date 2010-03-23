@@ -6,7 +6,8 @@
   <title>Add a Band</title>
   <link rel="stylesheet" type="text/css" href="style.css" />
 </head>
-<h1><a href="mainPage.php"><img src="images/logo.gif" width="118" height="25" alt="Rock Band" /></a></h1>
+<h1><a href="mainPage.php"><img src="images/logo.gif" width="118" height="25" alt="Rock Band" /></a><br/>
+Enter the following information to add a new Band</h1>
 <body>
 
 <?php
@@ -16,19 +17,17 @@
 	$name = $_POST['band_name'];
 	$hometown = $_POST['city'].", ".$_POST['state'];
 	$city=$_POST['city'];
-	$state=$_POST['state'];
-	$genre = $_POST['genre1'] .", ". $_POST['genre2'] . ", ".$_POST['genre3'];
+	$state=$_POST['state'];	
 	$genre1 = $_POST['genre1'];
 	$genre2 = $_POST['genre2'];
 	$genre3 = $_POST['genre3'];
 	$description = $_POST['description'];
-	$filename = $_FILES['picture']['picture'];
-	$albums = $_POST['albums1'].", ". $_POST['albums2'].", ".$_POST['albums3'].", ".$_POST['albums4'].", ".$_POST['albums5'];
-	$albums1 = $_POST['albums1'];
-	$albums2 = $_POST['albums2'];
-	$albums3 = $_POST['albums3'];
-	$albums4 = $_POST['albums4'];
-	$albums5 = $_POST['albums5'];
+	$filename = $_FILES['picture']['picture'];	
+	$album1 = $_POST['album1'];
+	$album2 = $_POST['album2'];
+	$album3 = $_POST['album3'];
+	$album4 = $_POST['album4'];
+	$album5 = $_POST['album5'];
 	
 	$validinput = true;
 	$target ="images/$filename";
@@ -64,7 +63,7 @@
 		$descriptionstatus = "* Invalid Entry";
 	}
 	
-	if (is_null($_POST['albums1']) or $_POST['albums1'] == "")
+	if (is_null($_POST['album1']) or $_POST['album1'] == "")
 	{
 		$validinput = false;
 		$albumstatus = "* Please enter at lease one album";
@@ -77,10 +76,7 @@
 
 	<br/>
 	<br/>
-	<h1>
 	
-	Enter the following information to add a new Band
-	</h1>
 	<br/>
 	<table>
 	<tr>
@@ -101,11 +97,65 @@
 	<table>
 	<tr>
 	<td><b>Genre:<b></tr>
+	
 				<tr>
-				<tr><td><input text=\"\" name=\"genre1\" size=\"20\" value=\"$genre1\"/>$genrestatus</td></tr>
-				<tr><td><input text=\"\" name=\"genre2\" size=\"20\" value=\"$genre2\"/></td></tr>
-				<tr><td><input text=\"\" name=\"genre3\" size=\"20\" value=\"$genre3\"/></tr></td>
+				
+				<select name=\"genre1\">";
+				
+			
+				include "db_connect.php";
+				$query = "SELECT DISTINCT genre_name, genre_id FROM genre;";
+				$result = mysqli_query($db, $query);
+				
+				while($row = mysqli_fetch_array($result))	
+				{
+					$genre1 = $row['genre_name'];
+					$value1 = $row['genre_id'];
+					echo "<option value= \"$value1\" >$genre1</option>\n";
+				}
+				
+				echo "
+				</select>
+						
 				</tr>
+				<tr>
+				
+				<select name=\"genre2\">";
+				
+				include "db_connect.php";
+				$query = "SELECT DISTINCT genre_name, genre_id FROM genre;";
+				$result = mysqli_query($db, $query);
+				
+				while($row = mysqli_fetch_array($result))	
+				{
+					$genre2 = $row['genre_name'];
+					$value2 = $row['genre_id'];
+					echo "<option value = \"$value2\" >$genre2</option>\n";
+				}
+				
+				echo "
+				</select>
+						
+				</tr>
+				<tr>
+				
+				<select name=\"genre3\">";
+			
+				include "db_connect.php";
+				$query = "SELECT DISTINCT genre_name, genre_id FROM genre;";
+				$result = mysqli_query($db, $query);
+				
+				while($row = mysqli_fetch_array($result))	
+				{
+					$genre3 = $row['genre_name'];
+					$value3 = $row['genre_id'];
+					echo "<option value=\"$value3\">$genre3</option>\n";
+				}
+				
+				echo "
+				</select>
+						
+				</tr></td>
 	<tr></tr>
 	<tr></tr>
 	<tr></tr>
@@ -114,11 +164,11 @@
 	</tr>
 	<tr>
 	<td>Albums:</td></tr>
-	<tr><td><input text=\"\" name=\"albums1\" size=\"20\" value=\"$albums1\"/>$albumstatus</td></tr>
-	<tr><td><input text=\"\" name=\"albums2\" size=\"20\" value=\"$albums2\"/></td></tr>
-	<tr><td><input text=\"\" name=\"albums3\" size=\"20\" value=\"$albums3\"/></td></tr>
-	<tr><td><input text=\"\" name=\"albums4\" size=\"20\" value=\"$albums4\"/></td></tr>
-	<tr><td><input text=\"\" name=\"albums5\" size=\"20\" value=\"$albums5\"/></td></tr>
+	<tr><td><input text=\"\" name=\"albums1\" size=\"20\" value=\"$album1\"/>$albumstatus</td></tr>
+	<tr><td><input text=\"\" name=\"albums2\" size=\"20\" value=\"$album2\"/></td></tr>
+	<tr><td><input text=\"\" name=\"albums3\" size=\"20\" value=\"$album3\"/></td></tr>
+	<tr><td><input text=\"\" name=\"albums4\" size=\"20\" value=\"$album4\"/></td></tr>
+	<tr><td><input text=\"\" name=\"albums5\" size=\"20\" value=\"$album5\"/></td></tr>
 	<tr>
 	<td>Picture File:</td><td><input type=\"file\" id=\"picture\" name=\"picture\"  /></td>
 	</tr>
@@ -132,10 +182,13 @@
 	";
 	}else{
 	
-	$query = "INSERT INTO band (band_name, hometown, genre, description, picture_file, albums)
-		VALUES ('$name','$hometown','$genre','$description','$target','$albums');";
-		
-	$result = mysqli_query($db, $query);
+	
+	$query = "INSERT INTO band (band_name, hometown, genre1, genre2, genre3, description, picture_file, album1, album2, album3, album4, album5)
+		VALUES ('$name','$hometown','$genre1', '$genre2', '$genre3','$description','$target','$album1','$album2','$album3','$album4','$album5');";
+		echo "<p>'$query'</p>";
+	$result = mysqli_query($db, $query)
+	or die("error Querying Database");
+	echo "\n";
 	
 	
 	echo "<p>Thanks for submitting the form</p>";

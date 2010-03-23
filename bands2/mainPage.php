@@ -11,7 +11,7 @@
 <body>
 <?php
 	
-	if(!session_is_registered("username")){
+	if(!isset($_SESSION['user_name'])){
 			echo "<h1>The username or password is incorrect. <a href=\"index.php\">Please try again.</a></h1>";
 			}else{
 	?>
@@ -40,6 +40,23 @@
 						<input type="text" id="searchbox" name="searchbox" />
 						<input type="submit" value="go" name="submit" />
 						</form>
+						<p><b>Edit/Delete Band</b></p>
+						<form method="post" action="bandPage.php">
+						<select name="editBand"><?php
+							include "db_connect.php";
+							$query = "SELECT DISTINCT band_name FROM band;";
+							$result = mysqli_query($db, $query);
+							$band=NULL;
+							while($row = mysqli_fetch_array($result))	
+							{
+							$band = $row['band_name'];
+							echo "<option>$band</option>\n";
+							}
+							?>
+					</select> 
+					<input type="submit" value="go" name="submit2" />
+					<br />
+					</form>
 					</div>
 					<div class="divider"></div>
 					<div class="content">
@@ -93,7 +110,7 @@
 		</div>
 	</div>
 	<p id="power">Powered by Artist and Venue Search</p>
-	<?php }
+	<?php } 
 	?>
 </div>
 </body>

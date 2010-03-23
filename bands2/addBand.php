@@ -35,24 +35,72 @@ Enter the following information to add a new Band
 <table>
 <tr>
 <td><b>Genre:<b></tr>
+	
 				<tr>
-				<tr><td><input text="" name="genre1" size="20" /></td></tr>
-				<tr><td><input text="" name="genre2" size="20" /></td></tr>
-				<tr><td><input text="" name="genre3" size="20" /></tr></td>
+				
+				<select name="genre1">
+				<?php
+				include "db_connect.php";
+				$query = "SELECT DISTINCT genre_name, genre_id FROM genre;";
+				$result = mysqli_query($db, $query);
+				
+				while($row = mysqli_fetch_array($result))	
+				{
+					$genre1 = $row['genre_name'];
+					$value1 = $row['genre_id'];
+					echo "<option value= \"$value1\" >$genre1</option>\n";
+				}
+				?>
+				</select>
+						
 				</tr>
-<tr></tr>
-<tr></tr>
-<tr></tr>
+				<tr>
+				
+				<select name="genre2">
+				<?php
+				include "db_connect.php";
+				$query = "SELECT DISTINCT genre_name, genre_id FROM genre;";
+				$result = mysqli_query($db, $query);
+				
+				while($row = mysqli_fetch_array($result))	
+				{
+					$genre2 = $row['genre_name'];
+					$value2 = $row['genre_id'];
+					echo "<option value = \"$value2\" >$genre2</option>\n";
+				}
+				?>
+				</select>
+						
+				</tr>
+				<tr>
+				
+				<select name="genre3">
+				<?php
+				include "db_connect.php";
+				$query = "SELECT DISTINCT genre_name, genre_id FROM genre;";
+				$result = mysqli_query($db, $query);
+				
+				while($row = mysqli_fetch_array($result))	
+				{
+					$genre3 = $row['genre_name'];
+					$value3 = $row['genre_id'];
+					echo "<option value=\"$value3\">$genre3</option>\n";
+				}
+				?>
+				</select>
+						
+				</tr></td>
+
 <tr><td>Description:</td></tr>
 <tr><td><TEXTAREA NAME="description" COLS=40 ROWS=6></TEXTAREA></td>
 </tr>
 <tr>
 <td>Albums:</td></tr>
-<tr><td><input text="" name="albums1" size="20"/></td></tr>
-<tr><td><input text="" name="albums2" size="20"/></td></tr>
-<tr><td><input text="" name="albums3" size="20"/></td></tr>
-<tr><td><input text="" name="albums4" size="20"/></td></tr>
-<tr><td><input text="" name="albums5" size="20"/></td></tr>
+<tr><td><input text="" name="album1" size="20"/></td></tr>
+<tr><td><input text="" name="album2" size="20"/></td></tr>
+<tr><td><input text="" name="album3" size="20"/></td></tr>
+<tr><td><input text="" name="album4" size="20"/></td></tr>
+<tr><td><input text="" name="album5" size="20"/></td></tr>
 <tr>
 <td>Picture File:</td><td><input type="file" id="picture" name="picture"  /></td>
 </tr>
