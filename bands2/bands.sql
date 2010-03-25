@@ -57,6 +57,8 @@ CREATE TABLE venue (
 
 DROP TABLE IF EXISTS upcoming_shows;
 CREATE TABLE upcoming_shows (
+	event_id INT NOT NULL AUTO_INCREMENT,
+	PRIMARY KEY(event_id),
 	band_id INT NOT NULL,
 	CONSTRAINT band_band_id_fk
 	FOREIGN KEY(band_id)
@@ -77,10 +79,10 @@ INSERT INTO band
 	VALUES
 	("Segmentation Fault", "Peoria, IL", 1,3,4, "Revitalizes old songs!", NULL, "P vs NP"),
 	("Artificial Intelligence", "Raleigh, NC", 2,3,4, "Large group. Loud music.", NULL, "Automaton"),
-	("Dual Core", "Martinsburg, PA", "jazz", 3,2,4, NULL, "Multithreaded"),
+	("Dual Core", "Martinsburg, PA", 3,2,4, "They are not hyperThreaded yet", NULL, "Multithreaded"),
 	("Null Pointer Exception", "Manchester, IN",4,3,5, "Classy!", NULL, "Array Index Out of Bounds"),
 	("Dave Matthews Band", "Charlottsville, VA", 5,3,4, "Under the table and dreaming", NULL, "Crush"),
-	("Mambo 5", "Detroit, MI", 3,4,2, "1, 2, 3, 4, 5", NULL, NULL),
+	("Mambo 5", "Detroit, MI", 3,4,2, "ah 1, ah 2, ah 3, ah 4, 5", NULL, NULL),
 	("Airplane", "San Francisco, CA", 2,1,4, "Always good music in the hood.", NULL, "Helicopter");
 
 INSERT INTO venue
@@ -102,16 +104,16 @@ INSERT INTO genre
 	("Rock"),("Electric"),("Country"),("Rap"),("Classical");
 
 INSERT INTO upcoming_shows
-	(date, time)
+	(band_id, date, time, venue_id)
 	VALUES
-	("7/12/2010","8:00p.m."),
-	("8/13/2010","8:00p.m."),
-	("8/15/2010","8:30p.m."),
-	("6/14/2010","8:00p.m."),
-	("8/04/2010","8:00p.m."),
-	("7/07/2010","8:00p.m."),
-	("8/20/2010","8:00p.m."),
-	("2/04/2011","8:00p.m."),
-	("2/07/2011","8:15p.m."),
-	("8/26/2010","8:00p.m."),
-	("9/04/2010","8:10p.m.");
+	(1,"2010-08-12","8:00",9),
+	(2,"2010-08-12","8:00",8),
+	(3,"2010-08-12","8:00",7),
+	(4,"2010-08-12","8:00",6),
+	(5,"2010-08-12","8:00",5),
+	(6,"2010-08-12","8:00",4),
+	(7,"2010-08-12","8:00",3),
+	(8,"2010-08-12","8:00",2),
+	(9,"2010-08-12","8:00",1);
+	
+	

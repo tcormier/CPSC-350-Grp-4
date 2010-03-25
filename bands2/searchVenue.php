@@ -55,8 +55,16 @@
 						<input type="text" id="searchbox" name="searchbox" />
 						<input type="submit" value="go" name="submit" />
 						</form>
+						<?php
+						if(session_is_registered("username")){
+						echo "
+						<form method=\"post\" action=\"editVenue.php\">";
 						
-						<form method="post" action="viewVenuePage.php">
+						}else{
+						echo "
+						<form method=\"post\" action=\"viewVenuePage.php\">";
+						 }
+						 ?>
 						<select name="editVenue" width="2">";
 							<?php
 							include "db_connect.php";

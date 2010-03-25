@@ -16,7 +16,7 @@
 	$id = $_POST['id'];
 	$venueName = $_POST['venue']; 
 	$query = "DELETE FROM venue WHERE venue = '$venueName' AND venue_id= '$id';";
-	echo $query;
+	
 	$result = mysqli_query($db, $query)
 	or die("Error Querying Database");
 	
