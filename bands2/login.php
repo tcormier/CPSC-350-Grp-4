@@ -23,12 +23,12 @@
 	{
 		echo "</br><h2>You are now signed in. Thanks $username!</h2>
 			<p><a href=\"mainPage.php\">Click Here to Access the Main Page</a>";
-			
+			session_register("username");
 	}
 	else
 	{
 	echo "<h2>The username or password is incorrect. <a href=\"index.php\">Click Here to try again.</a></h2>";
-	echo "the result is".$row[0].$row[1];
+	
 	}
 	mysqli_close($db);
 	

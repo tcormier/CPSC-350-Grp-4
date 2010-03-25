@@ -7,13 +7,13 @@
   <link rel="stylesheet" type="text/css" href="style.css" />
 </head>
 <h1><a href="mainPage.php"><img src="images/logo.gif" width="118" height="25" alt="Rock Band" /></a><br/>
-Enter the following information to add a new Band</h1>
+Enter the following information to edit the Band</h1>
 <body>
 
 <?php
 	include "db_connect.php";
 	
-	
+	$id = $_POST['id'];
 	$name = $_POST['band_name'];
 	$hometown = $_POST['city'].", ".$_POST['state'];
 	$city=$_POST['city'];
@@ -72,7 +72,7 @@ Enter the following information to add a new Band</h1>
 	
 	
 	if(!$validinput){
-		echo "<form method=\"post\" action=\"postBand.php\">
+		echo "<form method=\"post\" action=\"editBand.php\">
 
 	<br/>
 	<br/>
@@ -181,14 +181,12 @@ Enter the following information to add a new Band</h1>
 	</table>
 	";
 	}else{
-	
-	
 	$query = "UPDATE band SET band_name = '$name', hometown = '$hometown', genre1 = '$genre1', genre2 = '$genre2', genre3 = 'genre3',
 			description = '$description', picture_file = '$target', album1 = '$album1',album2 = '$album2',album3 = '$album3',
-			album4 = '$album4',album5 = '$album5' WHERE band_name = '$name';";
-		
+			album4 = '$album4',album5 = '$album5' WHERE band_id = '$id';";
+	
 	$result = mysqli_query($db, $query)
-	or die("error Querying Database");
+	or die("Error Querying Database");
 	echo "\n";
 	
 	

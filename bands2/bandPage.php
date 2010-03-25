@@ -15,11 +15,12 @@ session_start();
 <br/>
 <br/>
 <h1>
-<a href="http://localhost/bands2/"><img src="images/logo.gif" width="118" height="25" alt="Rock Band" /></a><br/>
+<a href="index.php"><img src="images/logo.gif" width="118" height="25" alt="Rock Band" /></a><br/>
 Band Information
 </h1>
 
 <b></b>
+
 <?php
  include "db_connect.php";
  $bandName = $_POST['editBand']; 
@@ -28,9 +29,10 @@ Band Information
  or die("Error Querying Database");
 
  while($row = mysqli_fetch_array($result)) {
-	
+ 
+	$bandName = $row['band_name'];
+	$id = $row['band_id'];
 	$description = $row['description'];
-	
 	$hometown = explode(", ",$row['hometown']);
 	$city = $hometown[0];
 	$state = $hometown[1];
@@ -38,7 +40,6 @@ Band Information
 	$genre1 = $row['genre1'];
 	$genre2 = $row['genre2'];
 	$genre3 = $row['genre3'];
-	$bandName = $row['band_name'];
 	$album1 = $row['album1'];
 	$album2 = $row['album2'];
 	$album3 = $row['album3'];
@@ -49,7 +50,7 @@ Band Information
  
  //<img src="$picture">
  echo "<form method=\"post\" action=\"editBand.php\">
-
+	
 	<br/>
 	<br/>
 	<h3>	
@@ -152,10 +153,20 @@ Band Information
 	</tr>
 	<tr>
 	<td>
+	<input type=\"hidden\" name= \"id\" value=\"$id\" />
 	<input type=\"submit\" name=\"submit\" value=\"Submit\"/>
 	<input type=\"reset\" name=\"reset\" value=\"Clear Form\"/>
 	</td>
 	</tr>	
 	</table>
+	</form>
+	<form method=\"POST\" action=\"deleteBand.php\">
+	<input type=\"hidden\" name= \"id\" value=\"$id\" />
+	<input type=\"hidden\" name= \"band_name\" value=\"$bandName\" />
+	<input type=\"submit\" name\"submit\" value=\"Delete\"/>
+	</form>
 	";
  ?>
+ 
+ </body>
+ </html>

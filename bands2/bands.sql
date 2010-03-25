@@ -61,8 +61,8 @@ CREATE TABLE upcoming_shows (
 	CONSTRAINT band_band_id_fk
 	FOREIGN KEY(band_id)
 	REFERENCES band (band_id),
-	date DATE NOT NULL,
-	time TIME NOT NULL,
+	date VARCHAR(20) NOT NULL,
+	time VARCHAR(20) NOT NULL,
 	venue_id INT NOT NULL,
 	CONSTRAINT venue_venue_id_fk
 	FOREIGN KEY(venue_id)
@@ -79,16 +79,39 @@ INSERT INTO band
 	("Artificial Intelligence", "Raleigh, NC", 2,3,4, "Large group. Loud music.", NULL, "Automaton"),
 	("Dual Core", "Martinsburg, PA", "jazz", 3,2,4, NULL, "Multithreaded"),
 	("Null Pointer Exception", "Manchester, IN",4,3,5, "Classy!", NULL, "Array Index Out of Bounds"),
-	("Ordenamiento De Burbuja", "Barcelona, Spain", 5,3,4, "El mejor del música pop espanol!", NULL, NULL);
+	("Dave Matthews Band", "Charlottsville, VA", 5,3,4, "Under the table and dreaming", NULL, "Crush"),
+	("Mambo 5", "Detroit, MI", 3,4,2, "1, 2, 3, 4, 5", NULL, NULL),
+	("Airplane", "San Francisco, CA", 2,1,4, "Always good music in the hood.", NULL, "Helicopter");
 
 INSERT INTO venue
 	(venue, location, description, picture_file)
 	VALUES
 	("The Gauntlet", "Fredericksburg, VA", "The most popular club in Fredericksburg!", NULL),
-	("La Burbuja", "Barcelona, Spain", "¡El club más popular de Barcelona!", NULL);
+	("La Burbuja", "Barcelona, Spain", "¡El club más popular de Barcelona!", NULL),
+	("Outer Space", "Richmond, VA", "Directly above the atmosphere in Richmond.", NULL),
+	("The Box", "Detroit, MI", "Small like a cardboard box.", NULL),
+	("Arctic", "Moscow, Russia", "It's pretty cold.", NULL),
+	("Boost Mobile", "Houston, TX", "Yo man where you at?", NULL),
+	("The Cage", "Miami, FL", "It's hot in the CAGE.", NULL),
+	("Cheese Head", "Green Bay, WI", "Brett hates us now.", NULL),
+	("The Hulk", "Disney, FL", "Great times had by all!", NULL);
 
 INSERT INTO genre
 	(genre_name)
 	VALUES
 	("Rock"),("Electric"),("Country"),("Rap"),("Classical");
-	
+
+INSERT INTO upcoming_shows
+	(date, time)
+	VALUES
+	("7/12/2010","8:00p.m."),
+	("8/13/2010","8:00p.m."),
+	("8/15/2010","8:30p.m."),
+	("6/14/2010","8:00p.m."),
+	("8/04/2010","8:00p.m."),
+	("7/07/2010","8:00p.m."),
+	("8/20/2010","8:00p.m."),
+	("2/04/2011","8:00p.m."),
+	("2/07/2011","8:15p.m."),
+	("8/26/2010","8:00p.m."),
+	("9/04/2010","8:10p.m.");

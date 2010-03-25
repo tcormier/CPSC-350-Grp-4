@@ -20,6 +20,7 @@
 		<li><a href="mainPage.php">home</a></li>
 		<li><a href="addBand.php">add band</a></li>
 		<li><a href="addVenue.php">add venue</a></li>
+		<li><a href="addEvent.php">add event</a></li>
 		<li><a href="index.php">logout</a></li>
 	</ul>
 	<h1><a href="mainPage.php"><img src="images/logo.gif" width="118" height="25" alt="Rock Band" /></a></h1>
@@ -42,7 +43,7 @@
 						</form>
 						<p><b>Edit/Delete Band</b></p>
 						<form method="post" action="bandPage.php">
-						<select name="editBand"><?php
+						<select name="editBand" width="2"><?php
 							include "db_connect.php";
 							$query = "SELECT DISTINCT band_name FROM band;";
 							$result = mysqli_query($db, $query);
@@ -54,14 +55,33 @@
 							}
 							?>
 					</select> 
-					<input type="submit" value="go" name="submit2" />
+					<input type="submit" value="Go" name="submit2" />
+					<br />
+					</form>
+					<p><b>Edit/Delete Venue</b></p>
+						<form method="post" action="venuePage.php">
+						<select name="editVenue" width="2"><?php
+							include "db_connect.php";
+							$query = "SELECT DISTINCT venue FROM venue;";
+							$result = mysqli_query($db, $query);
+							$venue=NULL;
+							while($row = mysqli_fetch_array($result))	
+							{
+							$venue = $row['venue'];
+							echo "<option>$venue</option>\n";
+							}
+							?>
+						</select> 
+						<input type="submit" value="Go" name="submit3" />
 					<br />
 					</form>
 					</div>
 					<div class="divider"></div>
 					<div class="content">
 						<h2>Featured Artist &amp; Updates</h2>
-						<h3>June 23, 2005</h3>
+						<h3><?php 
+						$date= date('Y-m-d H:i:s');
+						echo $date; ?></h3>
 						<p><?php include "featured.php"?>
 						<img src="images/pic_3.jpg" width="65" height="43" alt="pic 3" />
 						</p>
@@ -70,11 +90,30 @@
 				<div id="content">
 					<img src="images/dmb.jpg" width="346" height="234" alt="dmb" />
 					<div class="content">
-						<h2>Latest Album</h2>
-						<img src="images/pic_4.jpg" width="82" height="80" alt="Unwired album cover" class="left" />
-						<p>This is one of the albums of one of the artists that we recomend
-						you go see. You will have a blast at any one of our featured bands,
-						but this is one band that you can't miss in concert.</p>
+						<h2>Upcoming Events</h2>
+						
+						<?php
+						include "db_connect.php";
+						$query = "SELECT b.band_name, v.venue, e.time, e.date
+FROM band b
+INNER JOIN upcoming_shows e
+INNER JOIN venue v ON b.band_id = e.band_id
+AND v.venue_id = e.venue_id
+GROUP BY e.event_id";
+						echo "<table ALIGN='center' id=\"hor-minimalist-b\">\n<tr><th>Band Name</th><th>Venue Name </th><th>Time</th><th>Date</th></tr>\n\n";
+						$result = mysqli_query($db, $query)
+						 or die("Error Querying Database");
+						 while($row = mysqli_fetch_array($result)){
+								
+						$bandName = $row['band_name'];
+						$venue = $row['venue'];
+						$time = $row['time'];
+						$date = $row['date'];
+						
+	
+						
+						echo "<tr><td  >$bandName</td><td>$venue</td><td>$time</td><td>$date</td></tr>\n";}
+						echo "</table>";?>
 						<div class="divider"></div>
 						<h2>Featured Venue</h2>
 						<?php
@@ -88,7 +127,7 @@
 						$location = $row['location'];
 						//$picture = $row['picture_file'];
 	
-						$name = $row['venue_name'];
+						$name = $row['venue'];
 																	}?>
 						<table summary="Venue" border="0" cellspacing="0">
 						<tr>

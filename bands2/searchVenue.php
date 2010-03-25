@@ -15,17 +15,35 @@
 		<li><a href=\"mainPage.php\">home</a></li>
 		<li><a href=\"addBand.php\">add band</a></li>
 		<li><a href=\"addVenue.php\">add venue</a></li>
+		<li><a href=\"addEvent.php\">add event</a></li>
 		<li><a href=\"logout.php\">logout</a></li>
-	</ul>";}
+	</ul>
+	";}
+	else{
+	echo "
+	<h1><a href=\"index.php\"><img src=\"images/logo.gif\" width=\"118\" height=\"25\" alt=\"Rock Band\" /></a></h1>";
+	}
 	?>
 	
-	<h1><a href="mainPage.php"><img src="images/logo.gif" width="118" height="25" alt="Rock Band" /></a></h1>
 	
-		
-		
+	
 				<div id="sidebar">
+				<?php
+				include "db_connect.php";
+				$search = $_POST['searchbox'];
+				$find = "LIKE '%$search%'";
+				if($search=="")
+				{
+				$query = "SELECT * FROM venue";
+				}
+				else
+				{
+				$query = "SELECT * FROM venue WHERE venue $find OR description $find OR location $find;";
+				}
+				
+				?>
 					<div class="content">
-						<h2>Seaches</h2>
+						<h2>Searches</h2>
 						<p><b>Search For Artists</b></p>
 						<form method="post" action="searchName.php">
 						<input type="text" id="searchbox" name="searchbox" />
@@ -37,29 +55,34 @@
 						<input type="text" id="searchbox" name="searchbox" />
 						<input type="submit" value="go" name="submit" />
 						</form>
+						
+						<form method="post" action="viewVenuePage.php">
+						<select name="editVenue" width="2">";
+							<?php
+							include "db_connect.php";
+							$result = mysqli_query($db, $query);
+							while($row = mysqli_fetch_array($result))	
+							{
+							$name = $row['venue'];
+							echo "<option>$name</option>\n";
+							}
+							
+							echo"
+							</select> 
+							<input type=\"submit\" value=\"Go\" name=\"submit2\" />
+							<br />
+							</form>";?>
+						
 					</div>
 					</div>
 	<div id="main">
 <?php
-	include "db_connect.php";
-	$search = $_POST['searchbox'];
-	$find = "LIKE '%$search%'";
-	if($search=="")
-	{
-	$query = "SELECT * FROM venue";
-	}
-	else
-	{
-	$query = "SELECT * FROM venue WHERE venue $find OR description $find OR location $find;";
-	}
-	$result = mysqli_query($db, $query)
-	or die("Error Querying Database");
-	echo "<h1><a href='http://localhost/cpsc-350-grp-4/bands2/'><img src='images/logo.gif' width='118' height='25' alt='Rock Band' /></a></h1>";
+
 	echo "<table ALIGN='center' id=\"hor-minimalist-b\">\n<tr><th>Venue Name</th><th>Location</th><th>Description</th></tr>\n\n";
-  
+  $result = mysqli_query($db, $query);
    while($row = mysqli_fetch_array($result)) {
   	
-  	$name = $row['venue'];  	
+  	$name = $row['venue'];
   	$location= $row['location'];
 	$description = $row['description'];
   	echo "<tr><td  >$name</td><td>$location</td><td>$description</td></tr>\n";
