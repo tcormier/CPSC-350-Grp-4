@@ -38,28 +38,30 @@ Band Information
 	$city = $hometown[0];
 	$state = $hometown[1];
 	//$picture = $row['picture_file'];
-	$genre1 = $row['genre1'];
-	$genre2 = $row['genre2'];
-	$genre3 = $row['genre3'];
-	$album1 = $row['album1'];
-	$album2 = $row['album2'];
-	$album3 = $row['album3'];
-	$album4 = $row['album4'];
-	$album5 = $row['album5'];
+	
+	//$album1 = $row['album1'];
+	//$album2 = $row['album2'];
+	//$album3 = $row['album3'];
+	//$album4 = $row['album4'];
+	//$album5 = $row['album5'];
 	
 	}
-				$query = "SELECT genre_name FROM genre WHERE genre_id = $genre1;";
-				$result = mysqli_query($db, $query);				
-				$genre1 = mysqli_fetch_array($result);
-				$genre1 = $genre1['genre_name'];
-				$query = "SELECT genre_name FROM genre WHERE genre_id = $genre2;";
-				$result = mysqli_query($db, $query);
-				$genre2 = mysqli_fetch_array($result);
-				$genre2 = $genre2['genre_name'];
-				$query = "SELECT genre_name FROM genre WHERE genre_id = $genre3;";
-				$result = mysqli_query($db, $query);
-				$genre3 = mysqli_fetch_array($result);
-				$genre3 = $genre3['genre_name'];
+	
+
+				// $query = "SELECT genre_name FROM genre WHERE genre_id = $genres_as_array[0];";
+				// $result = mysqli_query($db, $query);				
+				// $genre1 = mysqli_fetch_array($result);
+				// $genre1 = $genre1['genre_name'];
+				
+				// $query = "SELECT genre_name FROM genre WHERE genre_id = $genres_as_array[1];";
+				// $result = mysqli_query($db, $query);
+				// $genre2 = mysqli_fetch_array($result);
+				// $genre2 = $genre2['genre_name'];
+				
+				// $query = "SELECT genre_name FROM genre WHERE genre_id = $genres_as_array[2];";
+				// $result = mysqli_query($db, $query);
+				// $genre3 = mysqli_fetch_array($result);
+				// $genre3 = $genre3['genre_name'];
  
  
  //<img src="$picture">
@@ -77,11 +79,22 @@ Band Information
 	</tr>
 	</table>
 	<table>
-	<th><font size=\"2\" face=\"Verdana\"><b>Genre:</b></font></th>
-	<tr><td><font size=\"2\" face=\"Verdana\">$genre1</font></td></tr>
-	<tr><td><font size=\"2\" face=\"Verdana\">$genre2</font></td></tr>		
-	<tr><td><font size=\"2\" face=\"Verdana\">$genre3</font></td></tr>
-	</tr>
+	<th><font size=\"2\" face=\"Verdana\"><b>Genre:</b></font></th>";
+
+	$query = "SELECT g.genre_name FROM genre g NATURAL JOIN band_genres bg NATURAL JOIN band WHERE band_name = '$bandName';";
+	
+	$result = mysqli_query($db, $query)
+	or die("Error Querying Database");
+	
+	 while($row = mysqli_fetch_array($result)) {
+	  
+	  $genre = $row['genre_name'];
+	  echo "<tr><td>$genre</td></tr>";
+	  }
+
+
+
+	echo "</tr>
 	<tr></tr>
 	<tr></tr>
 	

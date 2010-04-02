@@ -183,12 +183,52 @@ Enter the following information to add a new Band</h1>
 	}else{
 	
 	
-	$query = "INSERT INTO band (band_name, hometown, genre1, genre2, genre3, description, picture_file, album1, album2, album3, album4, album5)
-		VALUES ('$name','$hometown','$genre1', '$genre2', '$genre3','$description','$target','$album1','$album2','$album3','$album4','$album5');";
+	$query = "INSERT INTO band (band_name, hometown, description, picture_file) 
+		VALUES ('$name','$hometown','$description','$target');";
 		
 	$result = mysqli_query($db, $query)
-	or die("error Querying Database");
+	or die("Error Querying Database");
+	echo "\n";	
+	
+	
+	$query = "SELECT band_id FROM band WHERE band_name = '$name';";
+	$result= mysqli_query($db, $query)
+	or die("Error Querying Database");
+	
+	while($row = mysqli_fetch_array($result))
+	{
+		$id = $row['band_id'];
+	}
+	
+	
+	
+	
+	
+	
+	$query ="	
+		INSERT INTO band_genres (band_id, genre_id)
+		VALUES ('$id', '$genre1');";
+		$result = mysqli_query($db, $query)
+		or die("Error inserting into band_genres");
+	
+	$query="
+		INSERT INTO band_genres (band_id, genre_id)
+		VALUES ('$id', '$genre2');";
+		$result = mysqli_query($db, $query)
+		or die("Error inserting into band_genres");
+	
+	$query="
+		INSERT INTO band_genres (band_id, genre_id)
+		VALUES ('$id', '$genre3');";
+	
+
+	
+		
+	$result = mysqli_query($db, $query)
+	or die("Error inserting into band_genres");
+	
 	echo "\n";
+	
 	
 	
 	echo "<p>Thanks for submitting the form</p>";
