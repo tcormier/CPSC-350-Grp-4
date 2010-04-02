@@ -11,6 +11,27 @@ CREATE TABLE users (
 	location VARCHAR(30)
 );
 
+DROP TABLE IF EXISTS band_albums;
+CREATE TABLE band_albums (
+band_id INT NOT NULL,
+CONSTRAINT band_band_id_fk
+FOREIGN KEY(band_id)
+REFERENCES band (band_id),
+album_name VARCHAR(50)
+);
+
+DROP TABLE IF EXISTS band_genres;
+CREATE TABLE band_genres (
+band_id INT NOT NULL,
+CONSTRAINT band_band_id_fk
+FOREIGN KEY(band_id)
+REFERENCES band (band_id),
+genre_id INT NOT NULL,
+CONSTRAINT genre_genre_id_fk
+FOREIGN KEY(genre_id)
+REFERENCES genre (genre_id)
+);
+
 DROP TABLE IF EXISTS genre;
 CREATE TABLE genre (
 	genre_id INT NOT NULL AUTO_INCREMENT,
@@ -20,29 +41,12 @@ CREATE TABLE genre (
 
 DROP TABLE IF EXISTS band;
 CREATE TABLE band (
-	band_id INT NOT NULL AUTO_INCREMENT,
-	PRIMARY KEY(band_id),
-	band_name VARCHAR(25) NOT NULL,
-	hometown VARCHAR(30) NOT NULL,
-	genre1 INT,
-	genre2 INT,
-	genre3 INT,
-	CONSTRAINT genre_genre1_fk
-	FOREIGN KEY(genre1)
-	REFERENCES genre(genre_id),
-	CONSTRAINT genre_genre2_fk
-	FOREIGN KEY(genre2)
-	REFERENCES genre(genre_id),
-	CONSTRAINT genre_genre3_fk
-	FOREIGN KEY(genre3)
-	REFERENCES genre(genre_id),
-	description BLOB NOT NULL,
-	picture_file VARCHAR(75),
-	album1 VARCHAR(50),
-	album2 VARCHAR(50),
-	album3 VARCHAR(50),
-	album4 VARCHAR(50),
-	album5 VARCHAR(50)
+band_id INT NOT NULL AUTO_INCREMENT,
+PRIMARY KEY(band_id),
+band_name VARCHAR(25) NOT NULL,
+hometown VARCHAR(30) NOT NULL,
+description BLOB NOT NULL,
+picture_file VARCHAR(75)
 );
 
 DROP TABLE IF EXISTS venue;
@@ -59,6 +63,7 @@ DROP TABLE IF EXISTS upcoming_shows;
 CREATE TABLE upcoming_shows (
 	event_id INT NOT NULL AUTO_INCREMENT,
 	PRIMARY KEY(event_id),
+	event_name VARCHAR(20) NOT NULL,
 	band_id INT NOT NULL,
 	CONSTRAINT band_band_id_fk
 	FOREIGN KEY(band_id)
@@ -104,16 +109,16 @@ INSERT INTO genre
 	("Rock"),("Electric"),("Country"),("Rap"),("Classical");
 
 INSERT INTO upcoming_shows
-	(band_id, date, time, venue_id)
+	(band_id, event_name, date, time, venue_id)
 	VALUES
-	(1,"2010-08-12","8:00",9),
-	(2,"2010-08-12","8:00",8),
-	(3,"2010-08-12","8:00",7),
-	(4,"2010-08-12","8:00",6),
-	(5,"2010-08-12","8:00",5),
-	(6,"2010-08-12","8:00",4),
-	(7,"2010-08-12","8:00",3),
-	(8,"2010-08-12","8:00",2),
-	(9,"2010-08-12","8:00",1);
+	(1,"Woodstock", "2010-08-12","5:00",6),
+	(2,"Woodstock", "2010-08-12","6:00",6),
+	(3,"Woodstock", "2010-08-12","7:00",6),
+	(4,"Woodstock", "2010-08-12","8:00",6),
+	(5,"Woodstock", "2010-08-12","9:00",6),
+	(6,"Woodstock", "2010-08-12","10:00",6),
+	(7,"Woodstock", "2010-08-12","11:00",6),
+	(8,"Woodstock", "2010-08-12","12:00",6),
+	(9,"Woodstock", "2010-08-12","1:00",6);
 	
 	

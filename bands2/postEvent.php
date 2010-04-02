@@ -13,7 +13,7 @@ Enter the following information to add a new Event</h1>
 <?php
 	include "db_connect.php";
 	
-	
+	$eventName = $_POST['eventName'];
 	$band = $_POST['editBand'];
 	$venue=$_POST['choosevenue'];
 	$date=$_POST['date'];	
@@ -127,8 +127,8 @@ Enter the following information to add a new Event</h1>
 		
 		}
 	
-	$query = "INSERT INTO upcoming_shows (band_id, date, time, venue_id)
-		VALUES ('$bandid','$date','$time', '$venueid');";
+	$query = "INSERT INTO upcoming_shows (band_id, event_name, date, time, venue_id)
+		VALUES ('$bandid','$eventName','$date','$time', '$venueid');";
 		
 	$result = mysqli_query($db, $query)
 	or die("error Querying Database");
@@ -140,7 +140,7 @@ Enter the following information to add a new Event</h1>
   mysqli_close($db);
   }
   include "db_connect.php";
-  $query = "SELECT b.band_name, v.venue, e.time, e.date
+  $query = "SELECT b.band_name, v.venue, e.event_name, e.time, e.date
 FROM band b
 INNER JOIN upcoming_shows e
 INNER JOIN venue v ON b.band_id = e.band_id
@@ -149,13 +149,13 @@ GROUP BY e.event_id";
   $result = mysqli_query($db, $query)
   or die("Error Querying Database");
   while($row = mysqli_fetch_array($result)){
-		
+		$eventName = $row['event_name'];
 		$bandName = $row['band_name'];
 		$venue = $row['venue'];
 		$time = $row['time'];
 		$date = $row['date'];
 	}
 	
-	echo "<table ALIGN='center' id=\"hor-minimalist-b\">\n<tr><th>Band Name</th><th>Venue Name </th><th>Time</th><th>Date</th></tr>\n\n";
-	echo "<tr><td >$bandName</td><td>$venue</td><td>$time</td><td>$date</td></tr>\n";
+	echo "<table ALIGN='center' id=\"hor-minimalist-b\">\n<tr><th>Event Name</th><th>Band Name</th><th>Venue Name </th><th>Time</th><th>Date</th></tr>\n\n";
+	echo "<tr><td>$eventName</td><td >$bandName</td><td>$venue</td><td>$time</td><td>$date</td></tr>\n";
 	echo "</table>";

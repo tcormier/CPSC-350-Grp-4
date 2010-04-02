@@ -94,7 +94,7 @@ session_destroy();
 						
 						<?php
 						include "db_connect.php";
-						$query = "SELECT b.band_name, v.venue, e.time, e.date
+						$query = "SELECT e.event_name, b.band_name, v.venue, e.time, e.date
 FROM band b
 INNER JOIN upcoming_shows e
 INNER JOIN venue v ON b.band_id = e.band_id
@@ -102,9 +102,9 @@ AND v.venue_id = e.venue_id
 GROUP BY e.event_id";
 						$result = mysqli_query($db, $query)
 						 or die("Error Querying Database");
-						 echo "<table ALIGN='center' id=\"hor-minimalist-b\">\n<tr><th>Band Name</th><th>Venue Name </th><th>Time</th><th>Date</th></tr>\n\n";
+						 echo "<table ALIGN='center' id=\"hor-minimalist-b\">\n<tr><td>Event Name</th><th>Band Name</th><th>Venue Name </th><th>Time</th><th>Date</th></tr>\n\n";
 						 while($row = mysqli_fetch_array($result)){
-								
+						$eventName = $row['event_name'];		
 						$bandName = $row['band_name'];
 						$venue = $row['venue'];
 						$time = $row['time'];
@@ -112,7 +112,7 @@ GROUP BY e.event_id";
 	
 	
 					
-					echo "<tr><td  >$bandName</td><td>$venue</td><td>$time</td><td>$date</td></tr>\n";}
+					echo "<tr><td>$eventName</td><td  >$bandName</td><td>$venue</td><td>$time</td><td>$date</td></tr>\n";}
 					echo "</table>";?>
 						<div class="divider"></div>
 						<h2>Featured Venue</h2>

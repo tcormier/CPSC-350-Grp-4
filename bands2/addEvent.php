@@ -50,10 +50,10 @@ while($row = mysqli_fetch_array($result))
 </select></td>
              
 </tr>
-
+<tr><td><b>Name of Event:</b></td> <td> <input text="" name="eventName" size = "20" /> </td></tr>
 <tr>
 <td><b>Date of Event:</b></td>  <td><input text="" name="date" size="20" /> </td></tr>
-	
+<tr>	
 <td><b>Time:<b></td><td>  <input text="" name="time" size="10" /></td>
 </tr>
 </table>
