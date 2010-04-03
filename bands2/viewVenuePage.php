@@ -41,6 +41,15 @@ Venue Information
 
 	
 	}
+	
+	//$zipQuery = "SELECT location FROM users WHERE user = '$_SESSION['user_name']';";
+ $destinationQuery = "SELECT location FROM venue WHERE venue = '$venueName';";
+ $result = mysqli_query($db, $query)
+ or die("Error Querying Database");
+ 
+ while($row = mysqli_fetch_array($result)) {
+	$destination = $row['location'];
+	}
  
  //<img src="$picture">
  echo "
@@ -62,6 +71,16 @@ Venue Information
 	<tr>
 	<td>
 	</table>
+	";
+	echo "
+	
+	<form action=\"http://maps.google.com/maps\" method=\"get\">
+	<p><label for=\"saddr\">Your ZIP code for directions</label>
+	<input type=\"text\" name=\"saddr\" id=\"saddr\" value=\"\" />
+	<input type=\"submit\" value=\"Go\" />
+	<input type=\"hidden\" name=\"daddr\" value='$destination' />
+	<input type=\"hidden\" name=\"hl\" value=\"en\" /></p>
+	</form>
 	";
  ?>
  
