@@ -18,16 +18,13 @@ Enter the following information to edit the Band</h1>
 	$hometown = $_POST['city'].", ".$_POST['state'];
 	$city=$_POST['city'];
 	$state=$_POST['state'];	
-	$genre1 = $_POST['genre1'];
-	$genre2 = $_POST['genre2'];
-	$genre3 = $_POST['genre3'];
-	$description = $_POST['description'];
-	$filename = $_FILES['picture']['picture'];	
 	$album1 = $_POST['album1'];
 	$album2 = $_POST['album2'];
 	$album3 = $_POST['album3'];
 	$album4 = $_POST['album4'];
 	$album5 = $_POST['album5'];
+	$description = $_POST['description'];
+	$filename = $_FILES['picture']['picture'];	
 	
 	$validinput = true;
 	$target ="images/$filename";
@@ -106,7 +103,7 @@ Enter the following information to edit the Band</h1>
 				include "db_connect.php";
 				$query = "SELECT DISTINCT genre_name, genre_id FROM genre;";
 				$result = mysqli_query($db, $query);
-				
+			
 				while($row = mysqli_fetch_array($result))	
 				{
 					$genre1 = $row['genre_name'];
@@ -163,12 +160,70 @@ Enter the following information to edit the Band</h1>
 	<tr><td><TEXTAREA NAME=\"description\" COLS=40 ROWS=6 value=\"$description\">$description</TEXTAREA>$descriptionstatus</td>
 	</tr>
 	<tr>
-	<td>Albums:</td></tr>
-	<tr><td><input text=\"\" name=\"album1\" size=\"20\" value=\"$album1\"/>$albumstatus</td></tr>
-	<tr><td><input text=\"\" name=\"album2\" size=\"20\" value=\"$album2\"/></td></tr>
-	<tr><td><input text=\"\" name=\"album3\" size=\"20\" value=\"$album3\"/></td></tr>
-	<tr><td><input text=\"\" name=\"album4\" size=\"20\" value=\"$album4\"/></td></tr>
-	<tr><td><input text=\"\" name=\"album5\" size=\"20\" value=\"$album5\"/></td></tr>
+	<td>Albums:</td></tr>";
+	
+	$array[] = array(0=>$album1, 1=>$album2, 2=>$album3, 3=>$album4, 4=>$album5);
+		
+			
+	$query = "SELECT ba.album_name FROM band_albums ba NATURAL JOIN band b WHERE b.band_name = '$bandName';";
+	
+	$result = mysqli_query($db, $query)
+	or die("Error Querying Database");
+	$i = 0;
+	while($row = mysqli_fetch_array($result))
+	{
+	  
+	  $array[$i] = $row['album_name'];
+	  echo "<tr><td>$album</td></tr>";
+	  $i = $i + 1;
+	}	
+	
+	$query = "SELECT ba.album_id FROM band_albums ba WHERE ba.album_name = '$array[0]';";
+	$result = mysqli_query($db, $query)
+	or die ("Error Querying Database");
+	while($row = mysqli_fetch_array($result))
+	{
+		$albumid0 = $row['album_id'];
+	}
+	
+	$query = "SELECT ba.album_id FROM band_albums ba WHERE ba.album_name = '$array[1]';";
+	$result = mysqli_query($db, $query)
+	or die ("Error Querying Database");
+	while($row = mysqli_fetch_array($result))
+	{
+		$albumid1 = $row['album_id'];
+	}
+	
+	$query = "SELECT ba.album_id FROM band_albums ba WHERE ba.album_name = '$array[2]';";
+	$result = mysqli_query($db, $query)
+	or die ("Error Querying Database");
+	while($row = mysqli_fetch_array($result))
+	{
+		$albumid2 = $row['album_id'];
+	}
+	
+	$query = "SELECT ba.album_id FROM band_albums ba WHERE ba.album_name = '$array[3]';";
+	$result = mysqli_query($db, $query)
+	or die ("Error Querying Database");
+	while($row = mysqli_fetch_array($result))
+	{
+		$albumid3 = $row['album_id'];
+	}
+	
+	$query = "SELECT ba.album_id FROM band_albums ba WHERE ba.album_name = '$array[4]';";
+	$result = mysqli_query($db, $query)
+	or die ("Error Querying Database");
+	while($row = mysqli_fetch_array($result))
+	{
+		$albumid4 = $row['album_id'];
+	}
+	
+	echo "
+	<tr><td><input text=\"\" name=\"album1\" size=\"20\" value=\"$array[0]\"/></td></tr>
+	<tr><td><input text=\"\" name=\"album2\" size=\"20\" value=\"$array[1]\"/></td></tr>
+	<tr><td><input text=\"\" name=\"album3\" size=\"20\" value=\"$array[2]\"/></td></tr>
+	<tr><td><input text=\"\" name=\"album4\" size=\"20\" value=\"$array[3]\"/></td></tr>
+	<tr><td><input text=\"\" name=\"album5\" size=\"20\" value=\"$array[4]\"/></td></tr>
 	<tr>
 	<td>Picture File:</td><td><input type=\"file\" id=\"picture\" name=\"picture\"  /></td>
 	</tr>
@@ -181,14 +236,42 @@ Enter the following information to edit the Band</h1>
 	</table>
 	";
 	}else{
-	$query = "UPDATE band SET band_name = '$name', hometown = '$hometown', genre1 = '$genre1', genre2 = '$genre2', genre3 = 'genre3',
-			description = '$description', picture_file = '$target', album1 = '$album1',album2 = '$album2',album3 = '$album3',
-			album4 = '$album4',album5 = '$album5' WHERE band_id = '$id';";
+	$query = "UPDATE band SET band_name = '$name', hometown = '$hometown', 
+			description = '$description', picture_file = '$target' WHERE band_id = '$id';";
 	
 	$result = mysqli_query($db, $query)
-	or die("Error Querying Database");
+	or die("Error Querying Database1");
 	echo "\n";
 	
+	$query = "UPDATE band_albums SET album_name = '$album1' WHERE album_id = '$albumid0';";
+	$result = mysqli_query($db, $query)
+	or die("Error Querying Database2");
+	$query = "UPDATE band_albums SET album_name = '$album2' WHERE album_id = '$albumid1';";
+	$result = mysqli_query($db, $query)
+	or die("Error Querying Database2");
+	$query = "UPDATE band_albums SET album_name = '$album3' WHERE album_id = '$albumid2';";
+	$result = mysqli_query($db, $query)
+	or die("Error Querying Database2");
+	$query = "UPDATE band_albums SET album_name = '$album4' WHERE album_id = '$albumid3';";
+	$result = mysqli_query($db, $query)
+	or die("Error Querying Database2");
+	$query = "UPDATE band_albums SET album_name = '$album5' WHERE album_id = '$albumid4';";
+	$result = mysqli_query($db, $query)
+	or die("Error Querying Database2");
+	
+	
+	
+	$query = "UPDATE band_genres SET genre_id = '$genre1' WHERE band_id = '$id';";
+	$result = mysqli_query($db, $query)
+	or die("Error Querying Database");
+	
+	$query = "UPDATE band_genres SET genre_id = '$genre2' WHERE band_id = '$id';";
+	$result = mysqli_query($db, $query)
+	or die("Error Querying Database3");
+	
+	$query = "UPDATE band_genres SET genre_id = '$genre3' WHERE band_id = '$id';";
+	$result = mysqli_query($db, $query)
+	or die("Error Querying Database4");
 	
 	echo "<p>Thanks for submitting the form</p>";
 	

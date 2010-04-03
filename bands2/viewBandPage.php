@@ -81,7 +81,7 @@ Band Information
 	<table>
 	<th><font size=\"2\" face=\"Verdana\"><b>Genre:</b></font></th>";
 
-	$query = "SELECT g.genre_name FROM genre g NATURAL JOIN band_genres bg NATURAL JOIN band WHERE band_name = '$bandName';";
+	$query = "SELECT g.genre_name FROM genre g NATURAL JOIN band_genres bg NATURAL JOIN band WHERE band_name = '$bandName' GROUP BY g.genre_name;";
 	
 	$result = mysqli_query($db, $query)
 	or die("Error Querying Database");
@@ -101,13 +101,19 @@ Band Information
 	<tr><td><font size=\"2\" face=\"Verdana\">$description</td>
 	</tr>
 	<tr>
-	<td><font size=\"2\" face=\"Verdana\"><b>Albums:</b></td></font></tr>
-	<tr><td><font size=\"2\" face=\"Verdana\">$album1</td></font></tr>
-	<tr><td><font size=\"2\" face=\"Verdana\">$album2</td></font></tr>
-	<tr><td><font size=\"2\" face=\"Verdana\">$album3</td></font></tr>
-	<tr><td><font size=\"2\" face=\"Verdana\">$album4</td></font></tr>
-	<tr><td><font size=\"2\" face=\"Verdana\">$album5</td></font></tr>
-	<tr>
+	<td><font size=\"2\" face=\"Verdana\"><b>Albums:</b></td></font></tr>";
+	
+	$query = "SELECT ba.album_name FROM band_albums ba NATURAL JOIN band b WHERE b.band_name = '$bandName';";
+	
+	$result = mysqli_query($db, $query)
+	or die("Error Querying Database");
+	
+	 while($row = mysqli_fetch_array($result)) {
+	  
+	  $album = $row['album_name'];
+	  echo "<tr><td>$album</td></tr>";
+	  }
+	 echo"
 	<!-- display band picture here -->
 	</tr>
 	<tr>

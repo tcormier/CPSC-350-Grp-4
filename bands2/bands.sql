@@ -13,6 +13,8 @@ CREATE TABLE users (
 
 DROP TABLE IF EXISTS band_albums;
 CREATE TABLE band_albums (
+album_id INT NOT NULL AUTO_INCREMENT,
+PRIMARY KEY(album_id),
 band_id INT NOT NULL,
 CONSTRAINT band_band_id_fk
 FOREIGN KEY(band_id)
@@ -49,6 +51,18 @@ description BLOB NOT NULL,
 picture_file VARCHAR(75)
 );
 
+DROP TABLE IF EXISTS comments;
+CREATE TABLE comments
+(
+id INT NOT NULL AUTO_INCREMENT,
+PRIMARY KEY(id),
+band_id INT NOT NULL,
+CONSTRAINT band_band_id_fk
+FOREIGN KEY(band_id)
+REFERENCES band (band_id),
+comment_name BLOB NOT NULL
+);
+
 DROP TABLE IF EXISTS venue;
 CREATE TABLE venue (
 	venue_id INT NOT NULL AUTO_INCREMENT,
@@ -80,16 +94,22 @@ INSERT INTO users (username, password) VALUES
 	("guest", SHA(""));
 
 INSERT INTO band 
-	(band_name, hometown, genre1, genre2, genre3, description, picture_file, album1)
+	(band_name, hometown, description, picture_file)
 	VALUES
-	("Segmentation Fault", "Peoria, IL", 1,3,4, "Revitalizes old songs!", NULL, "P vs NP"),
-	("Artificial Intelligence", "Raleigh, NC", 2,3,4, "Large group. Loud music.", NULL, "Automaton"),
-	("Dual Core", "Martinsburg, PA", 3,2,4, "They are not hyperThreaded yet", NULL, "Multithreaded"),
-	("Null Pointer Exception", "Manchester, IN",4,3,5, "Classy!", NULL, "Array Index Out of Bounds"),
-	("Dave Matthews Band", "Charlottsville, VA", 5,3,4, "Under the table and dreaming", NULL, "Crush"),
-	("Mambo 5", "Detroit, MI", 3,4,2, "ah 1, ah 2, ah 3, ah 4, 5", NULL, NULL),
-	("Airplane", "San Francisco, CA", 2,1,4, "Always good music in the hood.", NULL, "Helicopter");
+	("Segmentation Fault", "Peoria, IL", "Revitalizes old songs!", NULL),
+	("Artificial Intelligence", "Raleigh, NC", "Large group. Loud music.", NULL),
+	("Dual Core", "Martinsburg, PA", "They are not hyperThreaded yet", NULL),
+	("Null Pointer Exception", "Manchester, IN", "Classy!", NULL),
+	("Dave Matthews Band", "Charlottsville, VA", "Under the table and dreaming", NULL),
+	("Mambo 5", "Detroit, MI", "ah 1, ah 2, ah 3, ah 4, 5", NULL),
+	("Airplane", "San Francisco, CA", "Always good music in the hood.", NULL);
 
+INSERT INTO comments
+	(band_id, comment_name)
+	VALUES
+	(1, "This band rocks!"), (1, "I love this band!"), (2,"I hate this band!"), (3,"Great Concerts"), (4,"I love this band"),
+	(4, "I can't wait to see them in concert"), (5,"AHHHHHHHHHHH"), (6,"Great Concert"), (7,"It was a great movie");
+	
 INSERT INTO venue
 	(venue, location, description, picture_file)
 	VALUES
@@ -107,6 +127,19 @@ INSERT INTO genre
 	(genre_name)
 	VALUES
 	("Rock"),("Electric"),("Country"),("Rap"),("Classical");
+	
+INSERT INTO band_genres
+	(band_id, genre_id)
+	VALUES
+	(1,5), (2,5), (3,5), (4,5), (5,5), (6,5), (7,5), (1,4), (2,4), (3,4), (4,4), (5,4), (6,4),
+	(7,4), (1,3), (2,3), (3,3), (4,3), (5,3), (6,3), (7,3), (1,2), (2,2), (3,2), (4,2),
+	(5,2), (6,2), (7,2), (1,1), (2,1), (3,1), (4,1), (5,1), (6,1), (7,1);
+	
+INSERT INTO band_albums
+	(band_id, album_name)
+	VALUES
+	(1,"The Segments"), (1,"The Segments 2"), (2,"AI"), (3,"Dual Core"), (4,"Exceptions"), (4,"Excepting"), (5, "Crush"),
+	(5,"Under the Table and Dreaming"), (6,"Mambo"), (7,"Helicopter");
 
 INSERT INTO upcoming_shows
 	(band_id, event_name, date, time, venue_id)
@@ -117,8 +150,7 @@ INSERT INTO upcoming_shows
 	(4,"Woodstock", "2010-08-12","8:00",6),
 	(5,"Woodstock", "2010-08-12","9:00",6),
 	(6,"Woodstock", "2010-08-12","10:00",6),
-	(7,"Woodstock", "2010-08-12","11:00",6),
-	(8,"Woodstock", "2010-08-12","12:00",6),
-	(9,"Woodstock", "2010-08-12","1:00",6);
+	(7,"Woodstock", "2010-08-12","11:00",6);
+	
 	
 	

@@ -37,14 +37,14 @@ Band Information
 	$city = $hometown[0];
 	$state = $hometown[1];
 	//$picture = $row['picture_file'];
-	$genre1 = $row['genre1'];
-	$genre2 = $row['genre2'];
-	$genre3 = $row['genre3'];
-	$album1 = $row['album1'];
-	$album2 = $row['album2'];
-	$album3 = $row['album3'];
-	$album4 = $row['album4'];
-	$album5 = $row['album5'];
+	// $genre1 = $row['genre1'];
+	// $genre2 = $row['genre2'];
+	// $genre3 = $row['genre3'];
+	// $album1 = $row['album1'];
+	// $album2 = $row['album2'];
+	// $album3 = $row['album3'];
+	// $album4 = $row['album4'];
+	// $album5 = $row['album5'];
 	
  }
  
@@ -142,12 +142,30 @@ Band Information
 	<tr><td><TEXTAREA NAME=\"description\" COLS=40 ROWS=6 value=\"$description\">$description</TEXTAREA></td>
 	</tr>
 	<tr>
-	<td>Albums:</td></tr>
-	<tr><td><input text=\"\" name=\"album1\" size=\"20\" value=\"$album1\"/></td></tr>
-	<tr><td><input text=\"\" name=\"album2\" size=\"20\" value=\"$album2\"/></td></tr>
-	<tr><td><input text=\"\" name=\"album3\" size=\"20\" value=\"$album3\"/></td></tr>
-	<tr><td><input text=\"\" name=\"album4\" size=\"20\" value=\"$album4\"/></td></tr>
-	<tr><td><input text=\"\" name=\"album5\" size=\"20\" value=\"$album5\"/></td></tr>
+	<td>Albums:</td></tr>";
+	
+	$array[] = array(0=>$album1, 1=>$album2, 2=>$album3, 3=>$album4, 4=>$album5);
+		
+			
+	$query = "SELECT ba.album_name FROM band_albums ba NATURAL JOIN band b WHERE b.band_name = '$bandName';";
+	
+	$result = mysqli_query($db, $query)
+	or die("Error Querying Database");
+	$i = 0;
+	while($row = mysqli_fetch_array($result))
+	{
+	  
+	  $array[$i] = $row['album_name'];
+	  echo "<tr><td>$album</td></tr>";
+	  $i = $i + 1;
+	}	
+	
+	echo "
+	<tr><td><input text=\"\" name=\"album1\" size=\"20\" value=\"$array[0]\"/></td></tr>
+	<tr><td><input text=\"\" name=\"album2\" size=\"20\" value=\"$array[1]\"/></td></tr>
+	<tr><td><input text=\"\" name=\"album3\" size=\"20\" value=\"$array[2]\"/></td></tr>
+	<tr><td><input text=\"\" name=\"album4\" size=\"20\" value=\"$array[3]\"/></td></tr>
+	<tr><td><input text=\"\" name=\"album5\" size=\"20\" value=\"$array[4]\"/></td></tr>
 	<tr>
 	<td>Picture File:</td><td><input type=\"file\" id=\"picture\" name=\"picture\"  /></td>
 	</tr>
