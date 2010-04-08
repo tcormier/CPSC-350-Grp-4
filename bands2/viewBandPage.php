@@ -14,13 +14,21 @@ session_start();
 
 <br/>
 <br/>
-<h1>
-<a href="index.php"><img src="images/logo.gif" width="118" height="25" alt="Rock Band" /></a><br/>
-Band Information
-</h1>
-
-
-<b></b>
+<?php
+	if(session_is_registered("username")){
+	echo"<ul id=\"nav\">
+		<li><a href=\"mainPage.php\">home</a></li>
+		<li><a href=\"addBand.php\">add band</a></li>
+		<li><a href=\"addVenue.php\">add venue</a></li>
+		<li><a href=\"addEvent.php\">add event</a></li>
+		<li><a href=\"logout.php\">logout</a></li>
+	</ul>
+	";}
+	else{
+	echo "
+	<h1><a href=\"index.php\"><img src=\"images/logo.gif\" width=\"118\" height=\"25\" alt=\"Rock Band\" /></a></h1>";
+	}
+	?>
 
 <?php
  include "db_connect.php";
@@ -38,35 +46,9 @@ Band Information
 	$city = $hometown[0];
 	$state = $hometown[1];
 	$comments = $row['comment_name'];
-	//$picture = $row['picture_file'];
-	
-	//$album1 = $row['album1'];
-	//$album2 = $row['album2'];
-	//$album3 = $row['album3'];
-	//$album4 = $row['album4'];
-	//$album5 = $row['album5'];
 	}
-	
-
-				// $query = "SELECT genre_name FROM genre WHERE genre_id = $genres_as_array[0];";
-				// $result = mysqli_query($db, $query);				
-				// $genre1 = mysqli_fetch_array($result);
-				// $genre1 = $genre1['genre_name'];
-				
-				// $query = "SELECT genre_name FROM genre WHERE genre_id = $genres_as_array[1];";
-				// $result = mysqli_query($db, $query);
-				// $genre2 = mysqli_fetch_array($result);
-				// $genre2 = $genre2['genre_name'];
-				
-				// $query = "SELECT genre_name FROM genre WHERE genre_id = $genres_as_array[2];";
-				// $result = mysqli_query($db, $query);
-				// $genre3 = mysqli_fetch_array($result);
-				// $genre3 = $genre3['genre_name'];
- 
- 
- //<img src="$picture">
  echo "
-	<!-- display band picture here -->
+
 	<br/>
 	<br/>
 	
@@ -126,7 +108,7 @@ Band Information
 			include "db_connect.php";
 			$query = "SELECT b.band_name
 						FROM band b
-						INNER JOIN genre g
+						INNER JOIN genre g						
 						WHERE b.band_id = g.genre_id
 						GROUP BY b.band_name";
 			$result = mysqli_query($db, $query)

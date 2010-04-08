@@ -7,7 +7,21 @@
   <link rel="stylesheet" type="text/css" href="style.css" />
 </head>
 <body>
-<h2><a href="mainPage.php"><img src="images/logo.gif" width="118" height="25" alt="Rock Band" /></a></h2>
+<?php
+	if(session_is_registered("username")){
+	echo"<ul id=\"nav\">
+		<li><a href=\"mainPage.php\">home</a></li>
+		<li><a href=\"addBand.php\">add band</a></li>
+		<li><a href=\"addVenue.php\">add venue</a></li>
+		<li><a href=\"addEvent.php\">add event</a></li>
+		<li><a href=\"logout.php\">logout</a></li>
+	</ul>
+	";}
+	else{
+	echo "
+	<h1><a href=\"index.php\"><img src=\"images/logo.gif\" width=\"118\" height=\"25\" alt=\"Rock Band\" /></a></h1>";
+	}
+	?>
 <?php
 	include "db_connect.php";
 	$name = $_POST['venue_name'];
