@@ -153,4 +153,8 @@ INSERT INTO upcoming_shows
 	(7,"Woodstock", "2010-08-12","11:00",6);
 	
 	
+	ALTER TABLE band
+	ADD INDEX (band_name);
 	
+	ALTER TABLE genre
+	ADD CONSTRAINT CHECK genre_name IN ("Rock","Electric","Country","Rap","Classical");

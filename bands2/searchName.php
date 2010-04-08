@@ -36,9 +36,7 @@
 					}
 					else
 					{	
-					$query = "SELECT * FROM band WHERE band_name $find OR hometown $find OR description $find 
-					OR genre1 $find OR genre2 $find OR genre3 $find OR album1 $find OR album2 $find OR album3 $find
-					OR album4 $find OR album5 $find;";
+					$query = "SELECT * FROM band WHERE band_name $find OR hometown $find OR description $find;";
 					}
 					?>				
 					<div class="content">
@@ -55,6 +53,7 @@
 						<input type="submit" value="go" name="submit" />
 						</form>
 						
+						<p><b>View Band Page</b></p>
 						<form method="post" action="viewBandPage.php">
 						<select name="editBand" width="2">";
 							<?php
