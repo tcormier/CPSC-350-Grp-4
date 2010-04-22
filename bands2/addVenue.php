@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
@@ -11,10 +12,24 @@
 
 <br/>
 <br/>
-<h2>
-<a href="http://localhost/bands2/"><img src="images/logo.gif" width="118" height="25" alt="Rock Band" /></a><br/>
-</h2><h1>Enter the following information to add a new Venue
-</h1>
+
+<?php
+	if(session_is_registered("username")){
+	echo"<ul id=\"nav\">
+		<li><a href=\"mainPage.php\">home</a></li>
+		<li><a href=\"addBand.php\">add band</a></li>
+		<li><a href=\"addVenue.php\">add venue</a></li>
+		<li><a href=\"addEvent.php\">add event</a></li>
+		<li><a href=\"logout.php\">logout</a></li>
+	</ul>
+	";}
+	else{
+	echo "
+	<h1><a href=\"index.php\"><img src=\"images/logo.gif\" width=\"118\" height=\"25\" alt=\"Rock Band\" /></a></h1>";
+	}
+	?>
+<b>Enter the following information to add a new Venue
+</b>
 <br/>
 <table>
 <tr>

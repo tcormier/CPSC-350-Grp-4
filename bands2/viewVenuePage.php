@@ -14,14 +14,21 @@ session_start();
 
 <br/>
 <br/>
-<h1>
-<a href="index.php"><img src="images/logo.gif" width="118" height="25" alt="Rock Band" /></a><br/>
-Venue Information
-</h1>
-
-
-<b></b>
-
+<?php
+	if(session_is_registered("username")){
+	echo"<ul id=\"nav\">
+		<li><a href=\"mainPage.php\">home</a></li>
+		<li><a href=\"addBand.php\">add band</a></li>
+		<li><a href=\"addVenue.php\">add venue</a></li>
+		<li><a href=\"addEvent.php\">add event</a></li>
+		<li><a href=\"logout.php\">logout</a></li>
+	</ul>
+	";}
+	else{
+	echo "
+	<h1><a href=\"index.php\"><img src=\"images/logo.gif\" width=\"118\" height=\"25\" alt=\"Rock Band\" /></a></h1>";
+	}
+	?>
 <?php
  include "db_connect.php";
  $venueName = $_POST['editVenue']; 
@@ -82,6 +89,29 @@ Venue Information
 	<input type=\"hidden\" name=\"hl\" value=\"en\" /></p>
 	</form>
 	";
+	
+	echo "<h2>Upcoming Shows</h2>";
+	include "db_connect.php";
+						$query = "SELECT e.event_name, b.band_name, v.venue, e.time, e.date
+FROM band b
+INNER JOIN upcoming_shows e
+INNER JOIN venue v ON b.band_id = e.band_id
+AND v.venue_id = e.venue_id AND v.venue = '$venueName'
+GROUP BY e.event_id";
+						$result = mysqli_query($db, $query)
+						 or die("Error Querying Database");
+						 echo "<table ALIGN='center' id=\"hor-minimalist-b\">\n<tr><td>Event Name</th><th>Band Name</th><th>Venue Name </th><th>Time</th><th>Date</th></tr>\n\n";
+						 while($row = mysqli_fetch_array($result)){
+						$eventName = $row['event_name'];		
+						$bandName = $row['band_name'];
+						$venue = $row['venue'];
+						$time = $row['time'];
+						$date = $row['date'];
+	
+	
+					
+					echo "<tr><td>$eventName</td><td  >$bandName</td><td>$venue</td><td>$time</td><td>$date</td></tr>\n";}
+					echo "</table>";
  ?>
  
  </body>

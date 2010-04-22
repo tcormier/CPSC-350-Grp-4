@@ -58,7 +58,7 @@
 						<?php
 						if(session_is_registered("username")){
 						echo "
-						<form method=\"post\" action=\"editVenue.php\">";
+						<form method=\"post\" action=\"viewVenuePage.php\">";
 						
 						}else{
 						echo "
